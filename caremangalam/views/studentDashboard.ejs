@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Dashboard — Fixora</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Top App Bar -->
+    <header class="appbar">
+      <div class="appbar__brand">Fixora</div>
+      <div class="appbar__right">
+        <div class="appbar__welcome">
+          <span class="avatar" aria-hidden="true"><%=student.sname[0]%></span>
+          <span>Welcome, <%=student.sname%>!</span>
+        </div>
+        <button class="icon-btn" aria-label="Notifications">🔔</button>
+        <form action="/logout">
+          <button class="logout">Log Out</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Secondary Nav -->
+    <nav class="subnav" aria-label="Primary">
+      <a class="subnav__item active dashboardBtn" href="#">
+        <span class="ico">🏠</span> Dashboard
+      </a>
+      <a class="subnav__item myCompBtn">
+        <span class="ico myCompBtn">📄</span> My Complaints
+      </a>
+      <a class="subnav__item pendingCompBtn" href="#">
+        <span class="ico">🧭</span> Pending Complaint
+      </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container grid-two">
+      <!-- Quick Actions -->
+      <section class="card quick-actions" aria-labelledby="quick-actions">
+        <h2 id="quick-actions" class="card__title">Quick Actions</h2>
+        <button class="cta cta--primary">
+          <span class="cta__icon">＋</span>
+          <span class="new-compBtn">New Complaint</span>
+        </button>
+        <button class="cta trackStatusBtn">
+          <span class="cta__icon">🔍</span>
+          <span>Track Status</span>
+        </button>
+        <button class="cta resolvedCompBtn">
+          <span class="cta__icon">✅</span>
+          <span>Resolved Complaint</span>
+        </button>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="card recent" aria-labelledby="recent-activity">
+        <h2 id="recent-activity" class="card__title">Recent Activity</h2>
+        <ul class="list"></ul>
+      </section>
+    </main>
+
+    <!-- New Complaint Modal -->
+    <div class="new-compModal hidden">
+      <div class="modal-header">
+        <h3>Register New Complaint</h3>
+        <p class="modal-sub">Your complaint will be auto-classified by AI.</p>
+      </div>
+      <form method="get" action="/newcomplaint" class="new-compForm">
+        <input type="text" placeholder="Describe the issue" name="comp" required />
+        <input type="text" placeholder="Room No." name="room" required />
+        <input type="text" placeholder="Building" name="building" required />
+        <input type="text" placeholder="Floor" name="floor" required />
+        <button type="submit">
+          <i class="fa-solid fa-paper-plane" style="margin-right:6px;"></i>
+          Submit Complaint
+        </button>
+      </form>
+    </div>
+    <div class="overlay click hidden"></div>
+
+    <footer class="hint"><p>© 2025 Fixora</p></footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script>
+      const student = "<%=JSON.stringify(student)%>";
+      const decoded = student.replace(/&#34;/g, '"');
+      const obj = JSON.parse(decoded);
+    </script>
+    <script src="studash.js"></script>
+  </body>
+</html>

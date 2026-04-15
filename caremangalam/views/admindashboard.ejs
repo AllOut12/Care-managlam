@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — Fixora</title>
+    <link rel="stylesheet" href="adminDash.css" />
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  </head>
+
+  <body>
+    <!-- TOP NAVBAR -->
+    <header class="topbar">
+      <div class="logo">Fixora</div>
+      <div class="user-area">
+        <span class="user-icon"><%=admin.name[0]%></span>
+        <span class="username">Welcome, <%=admin.name%>!</span>
+        <form action="/logout">
+          <button class="logout-btn">Log Out</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- MAIN NAVIGATION -->
+    <nav class="main-nav">
+      <a class="nav-item active dashboardBtn">
+        <i class="fa-solid fa-house"></i> Dashboard
+      </a>
+      <a class="nav-item allComplaintsBtn">
+        <i class="fa-solid fa-file"></i> All Complaints
+      </a>
+      <a class="nav-item assignedComplaintsBtn">
+        <i class="fa-solid fa-check-double"></i> Assigned
+      </a>
+      <a class="nav-item resolvedCompBtn">
+        <i class="fa-solid fa-circle-check"></i> Resolved
+      </a>
+      <a class="nav-item priorityTabBtn">
+        <i class="fa-solid fa-sliders"></i> Priority
+        <% if(manualReviewComplaints.length > 0) { %>
+          <span class="nav-badge"><%=manualReviewComplaints.length%></span>
+        <% } %>
+      </a>
+    </nav>
+
+    <div class="layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <h3 class="sidebar-label">QUICK ACTIONS</h3>
+        <button class="big-btn"><i class="fa-solid fa-plus"></i> New Notice</button>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="content">
+
+        <!-- STATS ROW -->
+        <section class="stats-row">
+          <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div>
+              <h4>Total</h4>
+              <h2><%=allComplaints.length%></h2>
+            </div>
+          </div>
+          <div class="stat-box stat-pending">
+            <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div>
+              <h4>Pending</h4>
+              <h2><%=pendingComplaints.length%></h2>
+            </div>
+          </div>
+          <div class="stat-box stat-progress">
+            <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
+            <div>
+              <h4>In Progress</h4>
+              <h2><%=inprogressConplaints.length%></h2>
+            </div>
+          </div>
+          <div class="stat-box stat-resolved">
+            <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <div>
+              <h4>Resolved</h4>
+              <h2><%=resolvedComplaints.length%></h2>
+            </div>
+          </div>
+          <div class="stat-box stat-review">
+            <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div>
+              <h4>Needs Review</h4>
+              <h2><%=manualReviewComplaints.length%></h2>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION TITLE -->
+        <h3 class="section-title">Recent Complaints</h3>
+
+        <!-- PRIORITY TABS (hidden by default, shown when priorityTabBtn clicked) -->
+        <div class="priority-tabs hidden" id="priorityTabs">
+          <button class="ptab ptab--active" data-tab="manual">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Needs Review
+            <span class="ptab-count"><%=manualReviewComplaints.length%></span>
+          </button>
+          <button class="ptab" data-tab="auto">
+            <i class="fa-solid fa-robot"></i>
+            Auto-Classified
+            <span class="ptab-count"><%=autoComplaints.length%></span>
+          </button>
+        </div>
+
+        <!-- COMPLAINTS AREA -->
+        <div class="complaints-row" id="complaintsRow"></div>
+
+      </main>
+    </div>
+
+    <footer class="footer">© 2025 Fixora</footer>
+
+    <script>
+      const _raw = "<%=JSON.stringify(allComplaints)%>".replace(/&#34;/g, '"');
+      const allComplaint = JSON.parse(_raw);
+
+      const _rawManual = "<%=JSON.stringify(manualReviewComplaints)%>".replace(/&#34;/g, '"');
+      const manualComplaints = JSON.parse(_rawManual);
+
+      const _rawAuto = "<%=JSON.stringify(autoComplaints)%>".replace(/&#34;/g, '"');
+      const autoComplaints = JSON.parse(_rawAuto);
+    </script>
+    <script src="admindash.js"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "category_map": {
+    "Academic": 0,
+    "Administrative": 1,
+    "Corruption": 2,
+    "Examination": 3,
+    "Financial": 4,
+    "Harassment": 5,
+    "Health & Safety": 6,
+    "Hostel": 7,
+    "Infrastructure": 8,
+    "Placement": 9
+  },
+  "priority_map": {
+    "High": 0,
+    "Low": 1,
+    "Medium": 2
+  }
+}
