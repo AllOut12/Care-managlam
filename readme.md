@@ -331,5 +331,4 @@ Complaints are stored as an embedded array inside each Student document in Mongo
 This project is developed for **Care Mangalam** institution. All rights reserved.
 
 ---
-
-> Built with ❤️ for Care Mangalam — making student voices heard, faster.
+.
